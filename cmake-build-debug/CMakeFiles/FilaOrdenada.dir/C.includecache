@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/a2152410/home/FilaOrdenada/includes/filaOrdenada.h
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+
+/media/a2152410/home/FilaOrdenada/main.c
+includes/filaOrdenada.h
+/media/a2152410/home/FilaOrdenada/includes/filaOrdenada.h
+
