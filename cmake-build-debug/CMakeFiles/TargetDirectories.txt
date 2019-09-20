@@ -1,3 +1,0 @@
-/media/a2152410/home/FilaOrdenada/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/media/a2152410/home/FilaOrdenada/cmake-build-debug/CMakeFiles/FilaOrdenada.dir
-/media/a2152410/home/FilaOrdenada/cmake-build-debug/CMakeFiles/edit_cache.dir
