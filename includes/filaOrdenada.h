@@ -19,10 +19,12 @@ typedef struct NodeList *Pointer;
 typedef struct NodeList {
     Object element;
     Pointer next;
+    Pointer prev;
 } NodeList;
 
 typedef struct {
     Pointer first;
+    Pointer last;
     int size;
 } List;
 
