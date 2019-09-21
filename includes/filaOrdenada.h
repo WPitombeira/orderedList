@@ -33,13 +33,11 @@ void printList(List *list);
 void destroyList(List *list);
 bool isEmpty(List *list);
 bool search(List *list, int key);
-bool searchFaster(List *list, int key);
 int size(List *list);
 void removeElement(List *list, int key, Object *item);
 void removeFirst(List *list, Object *item);
 void removeLast(List *list, Object *item);
 Object first(List *list);
 Object last(List *list);
-Object getObj(List *list, int key);
 
 #endif //FILAORDENADA_FILAORDENADA_H

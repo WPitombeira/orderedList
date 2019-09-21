@@ -1,4 +1,5 @@
 #include "includes/filaOrdenada.h"
+#include <time.h>
 
 void initList(List *list){
 	list->first = NULL;
@@ -10,10 +11,10 @@ void insert(List *list, Object x){
 	new = (Pointer)malloc(sizeof(Pointer));
 	new->element = x;
 
-
 	// TODO
 	// make a search using the object x.key in the list
 	// if the object is already listed, breaks the function because we dont wanna multiples equals numbers and send a msg to user warning
+
 	if(isEmpty(list)){
 		list->first = new;
 		list->size++;
@@ -44,7 +45,7 @@ void printList(List *list){
 		printf("%i ", aux->element.key);
 	}
 	printf("%i ", aux->element.key);
-	printf("}");
+	printf("}\n");
 }
 
 void destroyList(List *list){
@@ -55,7 +56,6 @@ void destroyList(List *list){
 		aux = aux->next;
 		free(remove);
 	}
-
 	printf("## LIST CLEAR ##");
 }
 
@@ -65,38 +65,10 @@ bool isEmpty(List *list){
 
 bool search(List *list, int key){
 	if(isEmpty(list))	return false;
-
 	Pointer aux;
-	aux = list->first;
-
-	while( aux != NULL || key > aux->element.key){
-		aux = aux->next;
-	}
+	for(aux = list->first->next; aux->element.key < key; aux = aux->next);
 
 	return (aux == NULL || aux->element.key > key) ? false : true;
-}
-
-Object getObj(List *list, int key){
-	Object obj;
-	if(isEmpty(list)) {
-		obj.key = 0;
-		return obj;
-	}
-
-	Pointer aux;
-	aux = list->first;
-
-	while(aux != NULL || key > aux->element.key){
-		aux = aux->next;
-	}
-
-	if(aux == NULL || aux->element.key > key) {
-		obj.key = 0;
-		return obj;
-	} else {
-		obj = aux->element;
-		return obj;
-	}
 }
 
 // bool searchFaster(List *list, int key){
@@ -115,12 +87,19 @@ void removeElement(List *list, int key, Object *item){
 		if(key == list->first->element.key){
 			removeFirst(list, item);
 		} else {
-			*item = getObj(list, key);
-			if(item!=NULL){
-				// code here the remove function
-				// using the searched object pos []
-				// last Auxiliar Next receives another aux with next of the next object listed
-				// lastAux = aux->next->next;
+			if(search(list, key)){
+				Pointer aux;
+				for(aux = list->first->next; aux->next->element.key != key; aux = aux->next);
+					if(aux->next->next == NULL){
+						removeLast(list, item);
+					} else {
+						Pointer remove = aux->next;
+						aux->next = remove->next;
+						*item = remove->element;
+						list->size = list->size-1;
+						printf("Removed object {%i}, resting %i elements", remove->element.key, list->size);
+						free(remove);
+					}
 			} else {
 				printf("## Object isn't listed\n");
 			}
@@ -165,15 +144,26 @@ Object last(List *list){
 	return aux->element;
 }
 
+int rm = 1001;
+
 int main() {
 	List list;
 	initList(&list);
 	Object ob;
 	srand(time(NULL));
+	ob.key = 1001;
+	insert(&list,ob);
 	for(int i=0; i<10; i++){
-		ob.key = rand()%100;
+		ob.key = rand()%1000;
 		insert(&list,ob);
 	}
+	ob.key = 1005;
+	insert(&list,ob);
+
+	Object item;
+
+	printList(&list);
+	removeElement(&list, rm, &item);
 	printList(&list);
 
 	return 0;
